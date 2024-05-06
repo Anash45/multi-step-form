@@ -13,7 +13,7 @@ if (isset($_POST['selling_buying'])) {
     $conn->close();
 
     // Send email
-    $to = "futuretest45@gmail.com";
+    $to = "waldo@dhz.me,futuretest45@gmail.com";
     $subject = "New Property Listing";
     $message = "
 <html>

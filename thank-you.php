@@ -2,7 +2,7 @@
 require_once './db_conn.php';
 // Array containing the data
 if (isset($_POST['selling_buying'])) {
-    print_r($_POST);
+    // print_r($_POST);
     $data = $_POST;
     // print_r($data);
     $sql = "INSERT INTO propertylistings (selling_buying, house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -104,9 +104,6 @@ if (isset($_POST['selling_buying'])) {
         </main>
         <script src="./assets/js/jquery-3.6.1.min.js"></script>
         <script src="./assets/js/bootstrap.bundle.min.js"></script>
-        <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwa3l7oekDnz3VVsTrsnLR17NslkgHqvA&libraries=places"></script>
-        <script src="./assets/js/script.js"></script>
     </body>
 
 </html>

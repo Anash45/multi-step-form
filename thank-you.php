@@ -31,15 +31,11 @@ if (isset($_POST['selling_buying'])) {
 </head>
 <body>
   <p>A new property listing has been submitted:</p>
-  <table>
-    <tr>
-      <th>Field</th>
-      <th>Value</th>
-    </tr>";
+  <table>";
     foreach ($data as $key => $value) {
         $message .= "
     <tr>
-      <td>{$key}</td>
+      <td>{".ucfirst(implode(' ',explode('_',$key)))."}</td>
       <td>{$value}</td>
     </tr>";
     }
@@ -63,7 +59,7 @@ if (isset($_POST['selling_buying'])) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FastExpert</title>
+        <title>Thank You</title>
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="./assets/css/style.css">
     </head>

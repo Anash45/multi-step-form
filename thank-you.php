@@ -35,7 +35,7 @@ if (isset($_POST['selling_buying'])) {
     foreach ($data as $key => $value) {
         $message .= "
     <tr>
-      <td>{".ucfirst(implode(' ',explode('_',$key)))."}</td>
+      <td>".ucfirst(implode(' ',explode('_',$key)))."</td>
       <td>{$value}</td>
     </tr>";
     }

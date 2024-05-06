@@ -46,6 +46,7 @@ a {
 .sec-title {
     font-size: 32px;
 }
+
 .sec-subtitle {
     font-size: 28px;
 }
@@ -151,15 +152,17 @@ a {
 }
 
 .box-big .sec-title {
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .box-big {
     padding: 0 20px;
 }
-label{
+
+label {
     font-size: 14px;
 }
+
 .text-selects {
     display: flex;
     flex-direction: column;
@@ -263,19 +266,99 @@ label{
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
     max-width: 100% !important;
 }
-.btn-secondary:hover{
+
+.btn-secondary:hover {
     background: #006ee0;
     box-shadow: none !important;
 }
-#phone{
+
+#phone {
     padding-left: 60px;
 }
-.country-code{
+
+.country-code {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     left: 15px;
 }
+
+.nav-tabs .nav-link {
+    height: 26px;
+    width: 26px;
+    border-radius: 999px;
+    background-color: #F0F0F0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 !important;
+    justify-content: center;
+}
+
+.check-img {
+    display: none;
+    height: 16px;
+    width: 16px;
+}
+
+.nav-link.active .check-img {
+    display: block;
+}
+
+.nav-link.active .nav-num {
+    display: none;
+}
+
+.nav-num {
+    font-size: 10px;
+    line-height: 17px;
+    height: 16px;
+    width: 16px;
+    border-radius: 999px;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #C4C4C4;
+}
+
+.sec-0 {
+    display: none;
+}
+
+.sec-1 {
+    display: block;
+}
+form{
+    overflow: hidden;
+}
+.nav-tabs {
+    position: relative;
+    gap: 20px;
+    width: fit-content;
+    margin: 0 auto;
+    border-bottom: 0 !important;
+    margin: 40px auto 20px;
+    z-index: 1;
+}
+.nav-tabs .nav-item{
+    position: relative;
+}
+
+.nav-tabs .nav-item:first-child{
+    display: none !important;
+}
+.nav-tabs::before {
+    content: "";
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(50%);
+    transform: translateY(-50%);
+    background-color: #C4C4C4;
+    z-index: 0;
+}
+
 @keyframes transform {
     0% {
         transform: rotate(0deg);

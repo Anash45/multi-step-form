@@ -189,6 +189,7 @@ $('#phoneBtn').on('click', function () {
 
 })
 
+let sell_or_buy;
 $('.select input').on('change click', function () {
     // let value = $(this).val();
     let tabPane = $(this).closest('.tab-pane').attr('id');
@@ -196,6 +197,12 @@ $('.select input').on('change click', function () {
     console.log(checkedLength);
     if (tabPane == 'tab0' && checkedLength > 0) {
         step0 = true;
+        sell_or_buy = $('.selling_or_buying:checked').val();
+        console.log(sell_or_buy);
+        $('.tab-content').removeClass('selling');
+        $('.tab-content').removeClass('buying');
+        $('.tab-content').addClass(sell_or_buy.toLowerCase());
+
         $('.nav-tabs #tab1-tab').tab('show');
     } else if (tabPane == 'tab1' && checkedLength > 0) {
         step1 = true;

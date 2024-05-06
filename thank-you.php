@@ -1,24 +1,34 @@
 <?php
 require_once './db_conn.php';
 // Array containing the data
-if (isset($_POST['selling_buying'])) {
+if (isset($_POST['selling_or_buying'])) {
     // print_r($_POST);
     $data = $_POST;
     // print_r($data);
-    $sql = "INSERT INTO propertylistings (selling_buying, house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssss", $data['selling_buying'], $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['phone'], $data['comment']);
+    if ($_POST['selling_or_buying'] == 'Selling') {
+        $subject = "Selling: New Property Listing";
+        $subtitle = '<p>A new property listing has been submitted:</p>';
+        $sql = "INSERT INTO selling_property (house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['phone'], $data['comment']);
+    } else {
+        $subject = "Buying: New Property Request";
+        $subtitle = '<p>A new property request has been submitted:</p>';
+        $sql = "INSERT INTO buying_property (house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['phone'], $data['comment']);
+    }
     $stmt->execute();
     $stmt->close();
     $conn->close();
 
     // Send email
     $to = "waldo@dhz.me,futuretest45@gmail.com";
-    $subject = "New Property Listing";
+
     $message = "
 <html>
 <head>
-  <title>New Property Listing</title>
+  <title>New Request</title>
   <style>
     table {
       border-collapse: collapse;
@@ -30,12 +40,15 @@ if (isset($_POST['selling_buying'])) {
   </style>
 </head>
 <body>
-  <p>A new property listing has been submitted:</p>
+  " . $subtitle . "
   <table>";
     foreach ($data as $key => $value) {
+        if ($_POST['selling_or_buying'] == 'Buying') {
+            $key = ($key == 'home_worth') ? 'budget' : $key;
+        }
         $message .= "
     <tr>
-      <td>".ucfirst(implode(' ',explode('_',$key)))."</td>
+      <td>" . ucfirst(implode(' ', explode('_', $key))) . "</td>
       <td>{$value}</td>
     </tr>";
     }
@@ -47,7 +60,7 @@ if (isset($_POST['selling_buying'])) {
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $headers .= "From: FastExpert <info@fastexpert.com>" . "\r\n";
-
+// echo $message;
     if (mail($to, $subject, $message, $headers)) {
         header('location:thank-you.php');
     }

@@ -320,13 +320,6 @@ label {
     background-color: #C4C4C4;
 }
 
-.sec-0 {
-    display: none;
-}
-
-.sec-1 {
-    display: block;
-}
 form{
     overflow: hidden;
 }

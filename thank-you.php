@@ -1,7 +1,8 @@
 <?php
 require_once './db_conn.php';
 // Array containing the data
-if (isset($_POST)) {
+if (isset($_POST['selling_buying'])) {
+    print_r($_POST);
     $data = $_POST;
     // print_r($data);
     $sql = "INSERT INTO propertylistings (selling_buying, house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

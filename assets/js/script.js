@@ -70,7 +70,8 @@ function initPlaces(elem) {
     });
 }
 
-function checkMainZip(zip) {
+function checkMainZip() {
+    let zip = $('#main-zip-input').val();
     // Regular expression pattern for validating US ZIP codes
     var zipPattern = /^\d{5}(?:-\d{4})?$/;
 
@@ -153,13 +154,14 @@ function phoneForm() {
 }
 
 $('#passzip').on('click', function () {
-    let zip = $('#main-zip-input').val();
     $(this).addClass('loading');
-    if (checkMainZip(zip)) {
-        $('.sec-0').hide();
-        $('.sec-1').fadeIn();
-    }
-    $(this).removeClass('loading');
+    setTimeout(() => {
+        if (checkMainZip()) {
+            $('.sec-0').hide();
+            $('.sec-1').fadeIn();
+        }
+        $(this).removeClass('loading');
+    }, 1000);
 })
 
 $('#addressbtn').on('click', function () {

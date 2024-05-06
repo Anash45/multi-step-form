@@ -143,6 +143,7 @@ a {
 
 .loading .loading-icon {
     display: block;
+    margin: 0 auto;
 }
 
 .sec-1 {

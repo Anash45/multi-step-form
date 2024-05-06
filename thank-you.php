@@ -3,7 +3,7 @@ require_once './db_conn.php';
 // Array containing the data
 $data = $_POST;
 // print_r($data);
-$sql = "INSERT INTO PropertyListings (selling_buying, house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO propertylistings (selling_buying, house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssssssss", $data['selling_buying'], $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['phone'], $data['comment']);
 $stmt->execute();

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FastExpert</title>
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./assets/css/style.css">
+    </head>
+
+    <body>
+        <header class="navbar navbar-white bg-white">
+            <div class="container-fluid">
+                <a href="./index.html" class="navbar-brand">
+                    <img src="./assets/img/FE-Logo.svg" alt="Logo" height="30">
+                </a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="tel:+1(800) 319-0511" class="nav-link py-0">Call (800) 319-0511</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main>
+            <section class="sec-0 py-5">
+                <div class="container py-4">
+                    <h1 class="s0-title text-white text-center mb-4 pb-3">Find Top Selling Realtors Near Me</h1>
+                    <div class="box box-small">
+                        <h2 class="sec-title fw-bold pb-2 mb-4 text-center">Search by Zip Code</h2>
+                        <div class="form-group">
+                            <div class="position-relative">
+                                <img src="./assets/img/locator_1.png" alt="Locator" width="15" class="locator-icon">
+                                <input type="text" data-inp="main-zip" class="form-control py-0 main-zip-input"
+                                    id="main-zip-input" placeholder="Enter Zip Code">
+                            </div>
+                            <label class="invalid-feedback mt-2 fw-semibold">Please enter a valid zip code</label>
+                        </div>
+                        <div class="form-group mt-4 pt-1">
+                            <button type="button" class="btn btn-primary pushSubmit" data-tab="sec-0" id="passzip">
+                                <span class="btn-text">Continue</span>
+                                <img src="./assets/img/loading.svg" alt="Loading" class="loading-icon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="sec-1 py-5">
+                <div class="container py-4">
+                    <div class="box box-big">
+                        <form action="thank-you.php" method="post">
+                            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link active" id="tab0-tab" data-bs-toggle="tab"
+                                        data-bs-target="#tab0" type="button" role="tab" aria-controls="tab0"
+                                        aria-selected="true">00</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1"
+                                        type="button" role="tab" aria-controls="tab1" aria-selected="false">01</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2"
+                                        type="button" role="tab" aria-controls="tab2" aria-selected="false">02</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3"
+                                        type="button" role="tab" aria-controls="tab3" aria-selected="false">03</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4"
+                                        type="button" role="tab" aria-controls="tab4" aria-selected="false">04</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" id="tab5-tab" data-bs-toggle="tab" data-bs-target="#tab5"
+                                        type="button" role="tab" aria-controls="tab5" aria-selected="false">05</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button type="button" class="nav-link" id="tab6-tab" data-bs-toggle="tab" data-bs-target="#tab6"
+                                        type="button" role="tab" aria-controls="tab6" aria-selected="false">06</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="tab0" role="tabpanel"
+                                    aria-labelledby="tab0-tab">
+                                    <h2 class="sec-title fw-bold pb-2 mb-4 text-center">Are you buying or selling?</h2>
+                                    <div class="text-selects">
+                                        <label class="text-select select">
+                                            <span>I am selling</span>
+                                            <input type="radio" name="selling_buying" class="selling_buying"
+                                                value="Selling">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>I am buying</span>
+                                            <input type="radio" name="selling_buying" class="selling_buying"
+                                                value="Buying">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                                    <h2 class="sec-title fw-bold pb-2 mb-4 text-center">What kind of property are you
+                                        looking to sell?</h2>
+                                    <div class="img-selects">
+                                        <label class="img-select select">
+                                            <img src="./assets/img/singlefamily1.svg" class="select-img"
+                                                alt="Houses Image">
+                                            <span>Single Family</span>
+                                            <input type="radio" name="selling_buying" class="selling_buying"
+                                                value="Single Family">
+                                        </label>
+                                        <label class="img-select select">
+                                            <img src="./assets/img/townhouse1.svg" class="select-img"
+                                                alt="Houses Image">
+                                            <span>Condo / Townhouse</span>
+                                            <input type="radio" name="house_type" class="house_type"
+                                                value="Condo / Townhouse">
+                                        </label>
+                                        <label class="img-select select">
+                                            <img src="./assets/img/multifamily1.svg" class="select-img"
+                                                alt="Houses Image">
+                                            <span>Multi-Family</span>
+                                            <input type="radio" name="house_type" class="house_type"
+                                                value="Multi-Family">
+                                        </label>
+                                        <label class="img-select select">
+                                            <img src="./assets/img/mobilehouse1.svg" class="select-img"
+                                                alt="Houses Image">
+                                            <span>Mobile Home</span>
+                                            <input type="radio" name="house_type" class="house_type"
+                                                value="Mobile Home">
+                                        </label>
+                                        <label class="img-select select">
+                                            <img src="./assets/img/commercial1.svg" class="select-img"
+                                                alt="Houses Image">
+                                            <span>Commercial</span>
+                                            <input type="radio" name="house_type" class="house_type" value="Commercial">
+                                        </label>
+                                        <label class="img-select select">
+                                            <img src="./assets/img/plotland1.svg" class="select-img" alt="Houses Image">
+                                            <span>Plot / Land</span>
+                                            <input type="radio" name="house_type" class="house_type"
+                                                value="Plot / Land">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                                    <h2 class="sec-title fw-bold pb-2 mb-4 text-center">How much do you estimate your
+                                        home is worth?</h2>
+                                    <div class="text-selects">
+                                        <label class="text-select select">
+                                            <span>Under 300k</span>
+                                            <input type="radio" name="home_worth" class="home_worth" value="Under 300k">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>$300k - $450k</span>
+                                            <input type="radio" name="home_worth" class="home_worth"
+                                                value="$300k - $450k">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>$450k - $600k</span>
+                                            <input type="radio" name="home_worth" class="home_worth"
+                                                value="$450k - $600k">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>$600k - $900k</span>
+                                            <input type="radio" name="home_worth" class="home_worth"
+                                                value="$600k - $900k">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>$900k - $1.5m</span>
+                                            <input type="radio" name="home_worth" class="home_worth"
+                                                value="$900k - $1.5m">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>Under 300k</span>
+                                            <input type="radio" name="home_worth" class="home_worth" value="Under 300k">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+                                    <h2 class="sec-title fw-bold pb-2 mb-4 text-center">How soon are you looking to
+                                        sell? </h2>
+                                    <div class="text-selects">
+                                        <label class="text-select select">
+                                            <span>Less than 2 weeks</span>
+                                            <input type="radio" name="time_estimate" class="time_estimate"
+                                                value="Less than 2 weeks">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>2 - 4 weeks</span>
+                                            <input type="radio" name="time_estimate" class="time_estimate"
+                                                value="2 - 4 weeks">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>1 - 2 months</span>
+                                            <input type="radio" name="time_estimate" class="time_estimate"
+                                                value="1 - 2 months">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>2 - 4 months</span>
+                                            <input type="radio" name="time_estimate" class="time_estimate"
+                                                value="2 - 4 months">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>4 - 6 months</span>
+                                            <input type="radio" name="time_estimate" class="time_estimate"
+                                                value="4 - 6 months">
+                                        </label>
+                                        <label class="text-select select">
+                                            <span>More than 6 months</span>
+                                            <input type="radio" name="time_estimate" class="time_estimate"
+                                                value="More than 6 months">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
+                                    <h2 class="sec-title fw-bold pb-2 mb-4 text-center">What is your property address?
+                                    </h2>
+                                    <div class="box-form">
+                                        <div class="row mt-3">
+                                            <div class="col-12 form-group">
+                                                <label for="street-input" class="fw-semibold pt-2 mb-2"><span>Street
+                                                        Address</span><span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="street" id="street-input"
+                                                    placeholder="Enter a street address">
+                                                <p class="invalid-feedback fw-medium mb-0">Enter address and select from
+                                                    suggestion list!</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <label for="city" class="fw-semibold pt-2 mb-2"><span>City</span><span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="city" id="city">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-7 col-6">
+                                                <label for="state" class="fw-semibold pt-2 mb-2"><span>State</span><span
+                                                        class="text-danger">*</span></label>
+                                                <select name="seller_state" name="state" id="state" class="form-control">
+                                                    <option value="" disabled>Select</option>
+                                                    <option value="AL">Alabama</option>
+                                                    <option value="AK">Alaska</option>
+                                                    <option value="AZ">Arizona</option>
+                                                    <option value="AR">Arkansas</option>
+                                                    <option value="CA">California</option>
+                                                    <option value="CO">Colorado</option>
+                                                    <option value="CT">Connecticut</option>
+                                                    <option value="DE">Delaware</option>
+                                                    <option value="DC">District of Columbia</option>
+                                                    <option value="FL">Florida</option>
+                                                    <option value="GA">Georgia</option>
+                                                    <option value="HI">Hawaii</option>
+                                                    <option value="ID">Idaho</option>
+                                                    <option value="IL">Illinois</option>
+                                                    <option value="IN">Indiana</option>
+                                                    <option value="IA">Iowa</option>
+                                                    <option value="KS">Kansas</option>
+                                                    <option value="KY">Kentucky</option>
+                                                    <option value="LA">Louisiana</option>
+                                                    <option value="ME">Maine</option>
+                                                    <option value="MD">Maryland</option>
+                                                    <option value="MA">Massachusetts</option>
+                                                    <option value="MI">Michigan</option>
+                                                    <option value="MN">Minnesota</option>
+                                                    <option value="MS">Mississippi</option>
+                                                    <option value="MO">Missouri</option>
+                                                    <option value="MT">Montana</option>
+                                                    <option value="NE">Nebraska</option>
+                                                    <option value="NV">Nevada</option>
+                                                    <option value="NH">New Hampshire</option>
+                                                    <option value="NJ">New Jersey</option>
+                                                    <option value="NM">New Mexico</option>
+                                                    <option value="NY">New York</option>
+                                                    <option value="NC">North Carolina</option>
+                                                    <option value="ND">North Dakota</option>
+                                                    <option value="OH">Ohio</option>
+                                                    <option value="OK">Oklahoma</option>
+                                                    <option value="OR">Oregon</option>
+                                                    <option value="PA">Pennsylvania</option>
+                                                    <option value="PR">Puerto Rico</option>
+                                                    <option value="RI">Rhode Island</option>
+                                                    <option value="SC">South Carolina</option>
+                                                    <option value="SD">South Dakota</option>
+                                                    <option value="TN">Tennessee</option>
+                                                    <option value="TX">Texas</option>
+                                                    <option value="UT">Utah</option>
+                                                    <option value="VT">Vermont</option>
+                                                    <option value="VA">Virginia</option>
+                                                    <option value="WA">Washington</option>
+                                                    <option value="WV">West Virginia</option>
+                                                    <option value="WI">Wisconsin</option>
+                                                    <option value="WY">Wyoming</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5 col-6">
+                                                <label for="zip" class="fw-semibold pt-2 mb-2"><span>Zipcode</span><span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="zip">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 pt-3">
+                                            <div class="col-12 text-center">
+                                                <button type="button" class="btn btn-secondary" data-inp="street"
+                                                    id="addressbtn">NEXT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5-tab">
+                                    <h2 class="sec-title sec-subtitle fw-bold pb-2 mb-0 text-center">Your list is ready!
+                                        Where should we send it? </h2>
+                                    <p class="text-center mb-4">
+                                        <span class="d-md-block">We'll email you a list of agents that we feel fit your
+                                            needs and</span> <span class="d-md-block">you choose which one to work
+                                            with.</span>
+                                    </p>
+                                    <div class="box-form name-email-form">
+                                        <div class="row mt-3 form-group">
+                                            <div class="col-6">
+                                                <label for="first_name" class="fw-semibold pt-2 mb-2"><span>First
+                                                        Name</span><span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="first_name">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="last_name" class="fw-semibold pt-2 mb-2"><span>Last
+                                                        Name</span><span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="last_name">
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="invalid-feedback fw-medium mb-0">Please make sure to fill out
+                                                    your first and last name.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 form-group">
+                                            <div class="col-12">
+                                                <label for="email" class="fw-semibold pt-2 mb-2"><span>Email</span><span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="email">
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="invalid-feedback fw-medium mb-0">Please enter your valid email
+                                                    address. </p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 pt-3">
+                                            <div class="col-12 text-center">
+                                                <button type="button" class="btn btn-secondary" data-inp="street"
+                                                    id="nameEmailBtn">NEXT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="tab6-tab">
+                                    <h2 class="sec-title fw-bold pb-2 mb-4 text-center">Phone Verification</h2>
+                                    <div class="box-form name-email-form">
+                                        <div class="row mt-3 form-group">
+                                            <div class="col-12">
+                                                <label for="phone" class="fw-semibold pt-2 mb-2"><span>Phone
+                                                        Number</span><span class="text-danger">*</span></label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" name="phone" id="phone"
+                                                        placeholder="(xxx) xxx-xxxx">
+                                                    <div class="country-code d-flex align-items-center gap-1"><img
+                                                            src="./assets/img/us-logon.svg" alt="flag"
+                                                            width="24"><span>+1</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="invalid-feedback fw-medium mb-0">Please enter valid phone
+                                                    number. </p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 form-group">
+                                            <div class="col-12">
+                                                <label for="email" class="fw-semibold pt-2 mb-2"><span>Add additional
+                                                        comment for real estate agent
+                                                    </span><small>(optional)</small></label>
+                                                <textarea name="comment" id="comment" class="form-control"
+                                                    rows="4"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3 pt-3">
+                                            <div class="col-12 text-center">
+                                                <button type="button" class="btn btn-secondary" data-inp="street" id="phoneBtn">Get My
+                                                    List</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script src="./assets/js/jquery-3.6.1.min.js"></script>
+        <script src="./assets/js/bootstrap.bundle.min.js"></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwa3l7oekDnz3VVsTrsnLR17NslkgHqvA&libraries=places"></script>
+        <script src="./assets/js/script.js"></script>
+    </body>
+
+</html>

@@ -1,19 +1,7 @@
 <?php
-// Database connection parameters
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$database = "kevin_fang";
-
+require_once './db_conn.php';
 // Array containing the data
 $data = $_POST;
-
-// Insert data into the SQL table
-$conn = new mysqli($servername, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 // print_r($data);
 $sql = "INSERT INTO PropertyListings (selling_buying, house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);

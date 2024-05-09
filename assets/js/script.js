@@ -165,22 +165,22 @@ $('#passzip').on('click', function () {
 })
 
 $('#addressbtn').on('click', function () {
-    step4 = true;
     if (propertyAddressForm()) {
         $('.nav-tabs #tab5-tab').tab('show');
+        step4 = true;
     }
 })
 
 $('#nameEmailBtn').on('click', function () {
-    step5 = true;
     if (nameEmailForm()) {
         $('.nav-tabs #tab6-tab').tab('show');
+        step5 = true;
     }
 })
 $('#phoneBtn').on('click', function () {
-    step6 = true;
     if (phoneForm()) {
         $('.nav-tabs #tab7-tab').tab('show');
+        step6 = true;
     }
     console.log(step0, step1, step2, step3, step4, step5, step6);
     if (step0 && step1 && step2 && step3 && step4 && step5 && step6) {

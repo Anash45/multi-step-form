@@ -3,20 +3,24 @@ require_once './db_conn.php';
 // Array containing the data
 if (isset($_POST['selling_or_buying'])) {
     // print_r($_POST);
+
+    if (isset($_POST['phone'])) {
+        $_POST['phone'] = formatPhoneNumber($_POST['phone']);
+    }
     $data = $_POST;
     // print_r($data);
     if ($_POST['selling_or_buying'] == 'Selling') {
         $subject = "Selling: New Property Listing";
         $subtitle = '<p>A new property listing has been submitted:</p>';
-        $sql = "INSERT INTO selling_property (house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO selling_property (house_type, home_worth, time_estimate, street, city, seller_state, zip, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['phone'], $data['comment']);
+        $stmt->bind_param("sssssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['zip'], $data['phone'], $data['comment']);
     } else {
         $subject = "Buying: New Property Request";
         $subtitle = '<p>A new property request has been submitted:</p>';
-        $sql = "INSERT INTO buying_property (house_type, home_worth, time_estimate, street, city, seller_state, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO buying_property (house_type, home_worth, time_estimate, place, phone, comment) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['phone'], $data['comment']);
+        $stmt->bind_param("ssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['place'], $data['phone'], $data['comment']);
     }
     $stmt->execute();
     $stmt->close();
@@ -45,6 +49,13 @@ if (isset($_POST['selling_or_buying'])) {
     foreach ($data as $key => $value) {
         if ($_POST['selling_or_buying'] == 'Buying') {
             $key = ($key == 'home_worth') ? 'budget' : $key;
+            if ($key == 'street' || $key == 'city' || $key == 'seller_state' || $key == 'zip') {
+                continue;
+            }
+        } else {
+            if ($key == 'place') {
+                continue;
+            }
         }
         $message .= "
     <tr>
@@ -60,7 +71,7 @@ if (isset($_POST['selling_or_buying'])) {
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $headers .= "From: FastExpert <info@fastexpert.com>" . "\r\n";
-// echo $message;
+    echo $message;
     if (mail($to, $subject, $message, $headers)) {
         header('location:thank-you.php');
     }

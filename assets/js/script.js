@@ -8,16 +8,52 @@ let step6 = false;
 $(document).ready(function () {
     let main_zip = document.getElementById('main-zip-input');
     let street_inp = document.getElementById('street-input');
+    let place_inp = document.getElementById('place');
     initPlaces(main_zip);
     initPlaces(street_inp);
+    initPlaces(place_inp);
 });
 
 function initPlaces(elem) {
     // Initialize Google Places Autocomplete with componentRestrictions
-    var autocomplete = new google.maps.places.Autocomplete(
-        elem,
-        { componentRestrictions: { country: 'US' } } // Restrict to the United States
-    );
+
+
+    var autocompleteOptions = {
+        componentRestrictions: { country: 'US' } // Restrict to the United States
+    };
+
+    if (elem.getAttribute('data-inp') == "main-zip") {
+        autocompleteOptions.types = ['postal_code']; // Restrict to postal codes
+    }
+
+    var autocompleteService = new google.maps.places.AutocompleteService();
+    var autocomplete = new google.maps.places.Autocomplete(elem, autocompleteOptions);
+
+    if (elem.getAttribute('data-inp') == 'place') {
+        elem.addEventListener('input', function () {
+            var input = this.value;
+
+            // Make a request to the AutocompleteService
+            autocompleteService.getPlacePredictions({
+                input: input,
+                types: ['(regions)', '(cities)'], // Include regions (states) and cities
+                componentRestrictions: { country: 'US' } // Restrict to the United States
+            }, function (predictions, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    // Clear existing predictions from the Autocomplete dropdown
+                    autocomplete.innerHTML = '';
+
+                    // Create a new list of predictions containing only the place name
+                    predictions.forEach(function (prediction) {
+                        var placeName = prediction.description;
+                        var option = document.createElement('option');
+                        option.value = placeName;
+                        autocomplete.element.appendChild(option); // Use autocomplete.element instead of autocomplete
+                    });
+                }
+            });
+        });
+    }
 
     // When a place is selected from the dropdown
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -91,13 +127,17 @@ function propertyAddressForm() {
     let street_input = $('#street-input').val();
     let city = $('#city').val();
     let state = $('#state').val();
+    let place = $('#place').val();
     // Regular expression pattern for validating US ZIP codes
     var zipPattern = /^\d{5}(?:-\d{4})?$/;
 
     console.log(zip);
     // Test the zip against the pattern
-    if (!zipPattern.test(zip) || street_input == '' || city == '' || state == '') {
+    if (sell_or_buy == "Selling" && (!zipPattern.test(zip) || street_input == '' || city == '' || state == '')) {
         $('#street-input').closest('.form-group').addClass('errorgroup');
+        return false;
+    } else if (sell_or_buy == "Buying" && (place == '')) {
+        $('#place').closest('.form-group').addClass('errorgroup');
         return false;
     } else {
         $('#street-input').closest('.form-group').removeClass('errorgroup');
@@ -136,7 +176,7 @@ function nameEmailForm() {
 function phoneForm() {
     let err = 0;
     let phone = $('#phone').val();
-    var phonePattern = /^\(\d{3}\) \d{3}-\d{4}$/;
+    var phonePattern = /^\d{10}$/;
 
     console.log(phone);
     // Test the phone against the pattern
@@ -168,7 +208,7 @@ $('#addressbtn').on('click', function () {
     if (propertyAddressForm()) {
         $('.nav-tabs #tab5-tab').tab('show');
         step4 = true;
-    }else{
+    } else {
         step4 = false;
     }
 })
@@ -177,7 +217,7 @@ $('#nameEmailBtn').on('click', function () {
     if (nameEmailForm()) {
         $('.nav-tabs #tab6-tab').tab('show');
         step5 = true;
-    }else{
+    } else {
         step5 = false;
     }
 })
@@ -185,7 +225,7 @@ $('#phoneBtn').on('click', function () {
     if (phoneForm()) {
         $('.nav-tabs #tab7-tab').tab('show');
         step6 = true;
-    }else{
+    } else {
         step6 = false;
     }
     console.log(step0, step1, step2, step3, step4, step5, step6);

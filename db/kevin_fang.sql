@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 04:25 PM
--- Server version: 8.0.35
--- PHP Version: 8.2.0
+-- Generation Time: May 09, 2024 at 01:32 AM
+-- Server version: 10.11.7-MariaDB-cll-lve
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kevin_fang`
+-- Database: `u956940883_kevin_fang`
 --
 
 -- --------------------------------------------------------
@@ -28,24 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `buying_property` (
-  `id` int NOT NULL,
-  `house_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `home_worth` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `time_estimate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `street` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `seller_state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `house_type` varchar(255) DEFAULT NULL,
+  `home_worth` varchar(255) DEFAULT NULL,
+  `time_estimate` varchar(255) DEFAULT NULL,
+  `place` varchar(255) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `buying_property`
---
-
-INSERT INTO `buying_property` (`id`, `house_type`, `home_worth`, `time_estimate`, `street`, `city`, `seller_state`, `phone`, `comment`, `created_at`) VALUES
-(1, 'Plot / Land', '$300k - $450k', '2 - 4 weeks', '200 East Flagler Street ', 'Miami', 'FL', '(123) 123-1234', '', '2024-05-06 14:24:32');
 
 -- --------------------------------------------------------
 
@@ -54,24 +45,18 @@ INSERT INTO `buying_property` (`id`, `house_type`, `home_worth`, `time_estimate`
 --
 
 CREATE TABLE `selling_property` (
-  `id` int NOT NULL,
-  `house_type` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `home_worth` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `time_estimate` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `street` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `city` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `seller_state` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `comment` text COLLATE utf8mb4_general_ci,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `house_type` varchar(255) DEFAULT NULL,
+  `home_worth` varchar(255) DEFAULT NULL,
+  `time_estimate` varchar(255) DEFAULT NULL,
+  `street` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `seller_state` varchar(255) DEFAULT NULL,
+  `zip` varchar(255) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `selling_property`
---
-
-INSERT INTO `selling_property` (`id`, `house_type`, `home_worth`, `time_estimate`, `street`, `city`, `seller_state`, `phone`, `comment`, `created_at`) VALUES
-(9, 'Single Family', '$300k - $450k', '1 - 2 months', '33 East 7th Street ', 'New York', 'NY', '(123) 123-1234', 'Comment', '2024-05-06 14:20:47');
 
 --
 -- Indexes for dumped tables
@@ -97,13 +82,13 @@ ALTER TABLE `selling_property`
 -- AUTO_INCREMENT for table `buying_property`
 --
 ALTER TABLE `buying_property`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `selling_property`
 --
 ALTER TABLE `selling_property`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

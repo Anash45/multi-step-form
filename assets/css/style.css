@@ -367,7 +367,23 @@ form {
 .buying .buy-q {
     display: block;
 }
-
+#buyer-addr{
+    display: none;
+}
+.selling #seller-addr{
+    display: block;
+}
+.buying #buyer-addr{
+    display: block;
+}
+.selling 
+#buyer-addr{
+    display: none;
+}
+.buying 
+#seller-addr{
+    display: none;
+}
 @keyframes transform {
     0% {
         transform: rotate(0deg);

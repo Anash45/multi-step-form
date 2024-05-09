@@ -22,21 +22,21 @@ if ($conn->connect_error) {
 
 function formatPhoneNumber($number)
 {
-    // Add "+1" at the start
-    $formattedNumber = "+1";
+    // Remove any non-numeric characters from the input
+    $number = preg_replace("/[^0-9]/", "", $number);
 
-    // Extract area code
-    $areaCode = substr($number, 0, 3);
-    $formattedNumber .= "($areaCode)";
-
-    // Extract first 3 digits
-    $firstThree = substr($number, 3, 3);
-
-    // Extract last 4 digits
-    $lastFour = substr($number, 6, 4);
-
-    // Concatenate the formatted number
-    $formattedNumber .= "$firstThree-$lastFour";
+    // If the length of the number is 10, format it as (123)123-1234
+    if (strlen($number) === 10) {
+        $formattedNumber = "(" . substr($number, 0, 3) . ")" . substr($number, 3, 3) . "-" . substr($number, 6, 4);
+    }
+    // If the length of the number is 11 and it starts with 1, format it as (123)123-1234
+    elseif (strlen($number) === 11 && substr($number, 0, 1) === "1") {
+        $formattedNumber = "(" . substr($number, 1, 3) . ")" . substr($number, 4, 3) . "-" . substr($number, 7, 4);
+    }
+    // Otherwise, return the original number
+    else {
+        $formattedNumber = $number;
+    }
 
     return $formattedNumber;
 }

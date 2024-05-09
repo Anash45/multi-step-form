@@ -98,6 +98,7 @@ function initPlaces(elem) {
         $('#city').val(city);
         $('#state').val(state);
 
+        // $('#place').val(city + ', ' + state + ', ', zipCode);
 
         console.log("Street Address: ", streetAddress.trim());
         console.log("City: ", city);
@@ -141,6 +142,7 @@ function propertyAddressForm() {
         return false;
     } else {
         $('#street-input').closest('.form-group').removeClass('errorgroup');
+        $('#place').closest('.form-group').removeClass('errorgroup');
         return true;
     }
 }
@@ -176,7 +178,7 @@ function nameEmailForm() {
 function phoneForm() {
     let err = 0;
     let phone = $('#phone').val();
-    var phonePattern = /^\d{10}$/;
+    var phonePattern = /^\d{10}$|^\(\d{3}\)\d{3}-\d{4}$|^\(\d{3}\)\s?\d{3}-\d{4}$/;
 
     console.log(phone);
     // Test the phone against the pattern

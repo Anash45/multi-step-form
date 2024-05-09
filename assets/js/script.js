@@ -168,6 +168,8 @@ $('#addressbtn').on('click', function () {
     if (propertyAddressForm()) {
         $('.nav-tabs #tab5-tab').tab('show');
         step4 = true;
+    }else{
+        step4 = false;
     }
 })
 
@@ -175,12 +177,16 @@ $('#nameEmailBtn').on('click', function () {
     if (nameEmailForm()) {
         $('.nav-tabs #tab6-tab').tab('show');
         step5 = true;
+    }else{
+        step5 = false;
     }
 })
 $('#phoneBtn').on('click', function () {
     if (phoneForm()) {
         $('.nav-tabs #tab7-tab').tab('show');
         step6 = true;
+    }else{
+        step6 = false;
     }
     console.log(step0, step1, step2, step3, step4, step5, step6);
     if (step0 && step1 && step2 && step3 && step4 && step5 && step6) {

@@ -381,3 +381,21 @@ form {
         transform: rotate(360deg);
     }
 }
+
+@media (max-width: 576px) {
+    .s0-title{
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 20px !important;
+        padding: 0 10px !important;
+    }
+    .box-small{
+        padding: 35px 16px 25px !important;
+    }
+    .sec-title{
+        font-size: 18px;
+    }
+    .box-big{
+        max-width: 100% !important;
+    }
+}

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FastExpert</title>
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./assets/css/style.css?v=6">
+        <link rel="stylesheet" href="./assets/css/style.css?v=7">
     </head>
 
     <body>
@@ -31,8 +31,9 @@
                         <div class="form-group">
                             <div class="position-relative">
                                 <img src="./assets/img/locator_1.png" alt="Locator" width="15" class="locator-icon">
-                                <input type="text" data-inp="main-zip" class="form-control py-0 main-zip-input"
-                                    id="main-zip-input" placeholder="Enter Zip Code">
+                                <input type="text" data-inp="main-zip" name="landing_entry_zip"
+                                    class="form-control py-0 main-zip-input" id="main-zip-input"
+                                    placeholder="Enter Zip Code">
                             </div>
                             <label class="invalid-feedback mt-2 fw-semibold">Please enter a valid zip code</label>
                         </div>
@@ -49,6 +50,8 @@
                 <div class="container py-4">
                     <div class="box box-big">
                         <form action="thank-you.php" method="post">
+                            <input type="hidden" name="landing_entry_zip" id="landing_entry_zip">
+                            <input type="hidden" name="country" id="country">
                             <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button type="button" class="nav-link active" id="tab0-tab" data-bs-toggle="tab"
@@ -259,10 +262,10 @@
                                             <div class="row mt-3">
                                                 <div class="col-md-7 col-6">
                                                     <label for="state"
-                                                        class="fw-semibold pt-2 mb-2"><span>State</span><span
+                                                        class="fw-semibold pt-2 mb-2"><span>State/Province</span><span
                                                             class="text-danger">*</span></label>
                                                     <select name="seller_state" name="state" id="state"
-                                                        class="form-control">
+                                                        class="form-control us_show">
                                                         <option value="" disabled>Select</option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AK">Alaska</option>
@@ -317,10 +320,27 @@
                                                         <option value="WI">Wisconsin</option>
                                                         <option value="WY">Wyoming</option>
                                                     </select>
+                                                    <select name="ca_seller_state" name="state" id="ca_state"
+                                                        class="form-control ca_show">
+                                                        <option value="" disabled>Select</option>
+                                                        <option value="AB">Alberta</option>
+                                                        <option value="BC">British Columbia</option>
+                                                        <option value="MB">Manitoba</option>
+                                                        <option value="NB">New Brunswick</option>
+                                                        <option value="NL">Newfoundland and Labrador</option>
+                                                        <option value="NS">Nova Scotia</option>
+                                                        <option value="ON">Ontario</option>
+                                                        <option value="PE">Prince Edward Island</option>
+                                                        <option value="QC">Quebec</option>
+                                                        <option value="SK">Saskatchewan</option>
+                                                        <option value="NT">Northwest Territories</option>
+                                                        <option value="NU">Nunavut</option>
+                                                        <option value="YT">Yukon</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-md-5 col-6">
                                                     <label for="zip"
-                                                        class="fw-semibold pt-2 mb-2"><span>Zipcode</span><span
+                                                        class="fw-semibold pt-2 mb-2"><span>Zipcode/Postal Code</span><span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="zip" name="zip">
                                                 </div>
@@ -334,7 +354,6 @@
                                                             class="text-danger">*</span></label>
                                                     <input type="text" data-inp="place" class="form-control"
                                                         name="place" id="place">
-                                                        
                                                     <p class="invalid-feedback fw-medium mb-0">Enter address and select
                                                         from suggestion list!</p>
                                                 </div>
@@ -440,7 +459,7 @@
         <script src="./assets/js/bootstrap.bundle.min.js"></script>
         <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwa3l7oekDnz3VVsTrsnLR17NslkgHqvA&libraries=places"></script>
-        <script src="./assets/js/script.js?v=6"></script>
+        <script src="./assets/js/script.js?v=7"></script>
     </body>
 
 </html>

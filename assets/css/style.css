@@ -367,23 +367,37 @@ form {
 .buying .buy-q {
     display: block;
 }
-#buyer-addr{
+
+#buyer-addr {
     display: none;
 }
-.selling #seller-addr{
+
+.selling #seller-addr {
     display: block;
 }
-.buying #buyer-addr{
+
+.buying #buyer-addr {
     display: block;
 }
-.selling 
-#buyer-addr{
+
+.selling #buyer-addr {
     display: none;
 }
-.buying 
-#seller-addr{
+
+.buying #seller-addr {
     display: none;
 }
+
+.ca_show,
+.ca .us_show {
+    display: none;
+}
+
+.ca .ca_show,
+.us .us_show {
+    display: block;
+}
+
 @keyframes transform {
     0% {
         transform: rotate(0deg);
@@ -399,19 +413,22 @@ form {
 }
 
 @media (max-width: 576px) {
-    .s0-title{
+    .s0-title {
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 20px !important;
         padding: 0 10px !important;
     }
-    .box-small{
+
+    .box-small {
         padding: 35px 16px 25px !important;
     }
-    .sec-title{
+
+    .sec-title {
         font-size: 18px;
     }
-    .box-big{
+
+    .box-big {
         max-width: 100% !important;
     }
 }

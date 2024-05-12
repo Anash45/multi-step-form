@@ -5,21 +5,21 @@ let step3 = false;
 let step4 = false;
 let step5 = false;
 let step6 = false;
+let country = '';
+let main_zip = document.getElementById('main-zip-input');
+let street_inp = document.getElementById('street-input');
+let place_inp = document.getElementById('place');
+let countries = ['US', 'CA'];
 $(document).ready(function () {
-    let main_zip = document.getElementById('main-zip-input');
-    let street_inp = document.getElementById('street-input');
-    let place_inp = document.getElementById('place');
-    initPlaces(main_zip);
-    initPlaces(street_inp);
-    initPlaces(place_inp);
+    initPlaces(main_zip, countries);
 });
 
-function initPlaces(elem) {
+function initPlaces(elem, countries) {
     // Initialize Google Places Autocomplete with componentRestrictions
 
 
     var autocompleteOptions = {
-        componentRestrictions: { country: 'US' } // Restrict to the United States
+        componentRestrictions: { country: countries } // Restrict to the Countries
     };
 
     if (elem.getAttribute('data-inp') == "main-zip") {
@@ -62,16 +62,20 @@ function initPlaces(elem) {
             console.log("Place details not available for this place");
             return;
         }
-
         // Extract address components
         var addressComponents = place.address_components;
         var streetAddress = '';
         var city = '';
         var state = '';
         var zipCode = '';
+        var countryLong = '';
+
 
         for (var i = 0; i < addressComponents.length; i++) {
             var component = addressComponents[i];
+
+            console.log(component);
+
             if (component.types.includes('street_number') || component.types.includes('route')) {
                 streetAddress += component.long_name + ' ';
             } else if (component.types.includes('locality')) {
@@ -81,6 +85,8 @@ function initPlaces(elem) {
                 state = component.short_name;
             } else if (component.types.includes('postal_code')) {
                 zipCode = component.long_name;
+            } else if (component.types.includes('country')) {
+                countryLong = component.long_name;
             }
         }
 
@@ -96,7 +102,17 @@ function initPlaces(elem) {
         $('#main-zip-input').val(zipCode);
         $('#zip').val(zipCode);
         $('#city').val(city);
-        $('#state').val(state);
+        $('#country').val(countryLong);
+
+        setTimeout(() => {
+            if (country == 'us') {
+                $('#state').val(state);
+                console.log('us state', state);
+            } else if (country == 'ca') {
+                $('#ca_state').val(state);
+                console.log('ca state', state);
+            }
+        }, 1500);
 
         // $('#place').val(city + ', ' + state + ', ', zipCode);
 
@@ -110,17 +126,25 @@ function initPlaces(elem) {
 function checkMainZip() {
     let zip = $('#main-zip-input').val();
     // Regular expression pattern for validating US ZIP codes
-    var zipPattern = /^\d{5}(?:-\d{4})?$/;
+    var zipPattern = /^\d{5}(?:-\d{4})?$/; // Pattern for US zip codes
+
+    var canadianZipPattern = /^[ABCEGHJKLMNPRSTVXY]\d[A-Z] ?\d[A-Z]\d$/i; // Updated pattern for Canadian zip codes
+
 
     // Test the zip against the pattern
     if (zipPattern.test(zip)) {
-        console.log('not valid');
+        console.log('valid US');
+        country = 'us';
+        $('#main-zip-input').closest('.form-group').removeClass('errorgroup');
+    } else if (canadianZipPattern.test(zip)) {
+        console.log('valid CA');
+        country = 'ca';
         $('#main-zip-input').closest('.form-group').removeClass('errorgroup');
     } else {
-        console.log('valid');
+        console.log('not valid');
         $('#main-zip-input').closest('.form-group').addClass('errorgroup');
     }
-    return zipPattern.test(zip);
+    return (zipPattern.test(zip) || canadianZipPattern.test(zip));
 }
 
 function propertyAddressForm() {
@@ -198,7 +222,17 @@ function phoneForm() {
 $('#passzip').on('click', function () {
     $(this).addClass('loading');
     setTimeout(() => {
+        console.log(checkMainZip());
         if (checkMainZip()) {
+
+            $('.tab-content').removeClass('us');
+            $('.tab-content').removeClass('ca');
+            $('.tab-content').addClass(country);
+            countries = [country.toUpperCase()];
+            initPlaces(street_inp, countries);
+            initPlaces(place_inp, countries);
+
+            $('#landing_entry_zip').val($('#main-zip-input').val());
             $('.sec-0').hide();
             $('.sec-1').fadeIn();
         }

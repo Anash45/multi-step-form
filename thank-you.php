@@ -7,20 +7,23 @@ if (isset($_POST['selling_or_buying'])) {
     if (isset($_POST['phone'])) {
         $_POST['phone'] = formatPhoneNumber($_POST['phone']);
     }
+    if ($_POST['country'] == 'Canada' && isset($_POST['ca_state'])) {
+        $_POST['state'] = $_POST['ca_state'];
+    }
     $data = $_POST;
     // print_r($data);
     if ($_POST['selling_or_buying'] == 'Selling') {
         $subject = "Selling: New Property Listing";
         $subtitle = '<p>A new property listing has been submitted:</p>';
-        $sql = "INSERT INTO selling_property (house_type, home_worth, time_estimate, street, city, seller_state, zip, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO selling_property (country, landing_entry_zip, house_type, home_worth, time_estimate, street, city, seller_state, zip, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['zip'], $data['phone'], $data['comment']);
+        $stmt->bind_param("sssssssssss", $data['country'], $data['landing_entry_zip'], $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['street'], $data['city'], $data['seller_state'], $data['zip'], $data['phone'], $data['comment']);
     } else {
         $subject = "Buying: New Property Request";
         $subtitle = '<p>A new property request has been submitted:</p>';
-        $sql = "INSERT INTO buying_property (house_type, home_worth, time_estimate, place, phone, comment) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO buying_property (country, landing_entry_zip, house_type, home_worth, time_estimate, place, phone, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssss", $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['place'], $data['phone'], $data['comment']);
+        $stmt->bind_param("ssssssss", $data['country'], $data['landing_entry_zip'], $data['house_type'], $data['home_worth'], $data['time_estimate'], $data['place'], $data['phone'], $data['comment']);
     }
     $stmt->execute();
     $stmt->close();
@@ -47,6 +50,13 @@ if (isset($_POST['selling_or_buying'])) {
   " . $subtitle . "
   <table>";
     foreach ($data as $key => $value) {
+        if ($_POST['country'] == 'Canada' && $key == 'seller_state') {
+            continue;
+        }else if($_POST['country'] == 'United States' && $key == 'ca_seller_state'){
+            continue;
+        }else if($_POST['country'] == 'Canada' && $key == 'ca_seller_state'){
+            $key = 'seller_province';
+        }
         if ($_POST['selling_or_buying'] == 'Buying') {
             $key = ($key == 'home_worth') ? 'budget' : $key;
             if ($key == 'street' || $key == 'city' || $key == 'seller_state' || $key == 'zip') {

@@ -155,10 +155,11 @@ function propertyAddressForm() {
     let place = $('#place').val();
     // Regular expression pattern for validating US ZIP codes
     var zipPattern = /^\d{5}(?:-\d{4})?$/;
+    var canadianZipPattern = /^[ABCEGHJKLMNPRSTVXY]\d[A-Z] ?\d[A-Z]\d$/i;
 
     console.log(zip);
     // Test the zip against the pattern
-    if (sell_or_buy == "Selling" && (!zipPattern.test(zip) || street_input == '' || city == '' || state == '')) {
+    if (sell_or_buy == "Selling" && ((!zipPattern.test(zip) && !canadianZipPattern.test(zip)) || street_input == '' || city == '' || state == '')) {
         $('#street-input').closest('.form-group').addClass('errorgroup');
         return false;
     } else if (sell_or_buy == "Buying" && (place == '')) {

@@ -397,7 +397,9 @@ form {
 .us .us_show {
     display: block;
 }
-
+.ca-flag{
+    display: none;
+}
 @keyframes transform {
     0% {
         transform: rotate(0deg);

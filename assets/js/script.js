@@ -89,6 +89,7 @@ function initPlaces(elem, countries) {
                 countryLong = component.long_name;
             }
         }
+        $('#main-zip-input').val(zipCode);
 
         let elem_type = elem.getAttribute('data-inp');
 
@@ -98,21 +99,7 @@ function initPlaces(elem, countries) {
             $('#addressbtn').click();
         }
 
-        $('#street-input').val(streetAddress);
-        $('#main-zip-input').val(zipCode);
-        $('#zip').val(zipCode);
-        $('#city').val(city);
-        $('#country').val(countryLong);
-
-        setTimeout(() => {
-            if (country == 'us') {
-                $('#state').val(state);
-                console.log('us state', state);
-            } else if (country == 'ca') {
-                $('#ca_state').val(state);
-                console.log('ca state', state);
-            }
-        }, 1500);
+        setValues(streetAddress, city, state, zipCode, countryLong, country);
 
         // $('#place').val(city + ', ' + state + ', ', zipCode);
 
@@ -122,7 +109,27 @@ function initPlaces(elem, countries) {
         console.log("Zip Code: ", zipCode);
     });
 }
+function setValues(streetAddress, city, state, zipCode, countryLong, country) {
+    $('#street-input').val(streetAddress);
+    $('#main-zip-input').val(zipCode);
+    $('#zip').val(zipCode);
+    $('#city').val(city);
+    $('#country').val(countryLong);
 
+    setTimeout(() => {
+        if (country.toLowerCase() == 'us') {
+            $('#state').val(state);
+            $('.ca-flag').hide();
+            $('.us-flag').show();
+            console.log('us state', state);
+        } else if (country.toLowerCase() == 'ca') {
+            $('#ca_state').val(state);
+            $('.ca-flag').show();
+            $('.us-flag').hide();
+            console.log('ca state', state);
+        }
+    }, 1500);
+}
 function checkMainZip() {
     let zip = $('#main-zip-input').val();
     // Regular expression pattern for validating US ZIP codes
@@ -222,23 +229,37 @@ function phoneForm() {
 
 $('#passzip').on('click', function () {
     $(this).addClass('loading');
+    console.log(checkMainZip());
+    let main_zip_code = $('#main-zip-input').val();
+
     setTimeout(() => {
-        console.log(checkMainZip());
         if (checkMainZip()) {
+            let formattedPostal = formatPostalCode(main_zip_code);
+            validatePostalCode(formattedPostal)
+                .then(result => {
+                    console.log(result);
+                    if (result.isValid) {
+                        setValues(result.streetAddress, result.city, result.state, formattedPostal, result.countryLong, result.country);
+                        $('.tab-content').removeClass('us');
+                        $('.tab-content').removeClass('ca');
+                        $('.tab-content').addClass((result.country).toLowerCase());
+                        countries = [result.country.toUpperCase()];
+                        initPlaces(street_inp, countries);
+                        initPlaces(place_inp, countries);
 
-            $('.tab-content').removeClass('us');
-            $('.tab-content').removeClass('ca');
-            $('.tab-content').addClass(country);
-            countries = [country.toUpperCase()];
-            initPlaces(street_inp, countries);
-            initPlaces(place_inp, countries);
-
-            $('#landing_entry_zip').val($('#main-zip-input').val());
-            $('.sec-0').hide();
-            $('.sec-1').fadeIn();
+                        $('#landing_entry_zip').val($('#main-zip-input').val());
+                        $('.sec-0').hide();
+                        $('.sec-1').fadeIn();
+                        $('#main-zip-input').closest('.form-group').removeClass('errorgroup');
+                    } else {
+                        console.log(`${formattedPostal} is not a valid postal code.`);
+                        $('#main-zip-input').closest('.form-group').addClass('errorgroup');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
-        $(this).removeClass('loading');
     }, 1000);
+    $(this).removeClass('loading');
 })
 
 $('#addressbtn').on('click', function () {
@@ -316,3 +337,62 @@ $('form').on('submit', function (e) {
         alert('One of more steps are left, go back and check!');
     }
 });
+
+async function validatePostalCode(postalCode) {
+    const apiKey = 'AIzaSyBQmiW5DJHsA7lrOo6DvCv4lIufRHXLVj4';
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postalCode)}&key=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.status === 'OK') {
+            // Filter out results from countries other than US and Canada
+            const usCanadaResults = data.results.filter(result => {
+                return result.address_components.some(component => component.types.includes('country') && (component.short_name === 'US' || component.short_name === 'CA'));
+            });
+
+            if (usCanadaResults.length > 0) {
+                const results = usCanadaResults[0];
+                let streetAddress, city, state, countryLong, country;
+                for (let component of results.address_components) {
+                    if (component.types.includes('street_number') || component.types.includes('route')) {
+                        streetAddress = component.long_name;
+                    } else if (component.types.includes('locality')) {
+                        city = component.long_name;
+                    } else if (component.types.includes('administrative_area_level_1')) {
+                        state = component.short_name;
+                    } else if (component.types.includes('country')) {
+                        countryLong = component.long_name;
+                        country = component.short_name;
+                    }
+                }
+                // Return the address components
+                return {
+                    streetAddress: streetAddress,
+                    city: city,
+                    state: state,
+                    countryLong: countryLong,
+                    country: country,
+                    isValid: true
+                };
+            }
+        }
+        return { isValid: false }; // Postal code is invalid or not from US/Canada
+    } catch (error) {
+        console.error('Error:', error);
+        return { isValid: false }; // Error occurred, consider postal code as invalid
+    }
+}
+function formatPostalCode(postalCode) {
+    if (postalCode.length === 5 || postalCode.length === 7) {
+        // If the postal code is already 5 or 7 characters, return it as it is
+        return postalCode;
+    } else if (postalCode.length === 6) {
+        // If the postal code is 6 characters, add a space in between
+        return postalCode.substring(0, 3) + ' ' + postalCode.substring(3);
+    } else {
+        // If the postal code is of an unsupported length, return null or throw an error
+        return null; // or throw new Error('Invalid postal code');
+    }
+}
